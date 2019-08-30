@@ -11,16 +11,20 @@ package biblioteca;
  */
 public class Endereco {
     private String rua;
-    private String bairro;
     private String cidade;
     private int num;
     
     public Endereco(String rua, String bairro, String cidade, int num)
     {
         this.rua = rua;
-        this.bairro = bairro;
         this.cidade = cidade;
         this.num = num;
+    }
+
+    public Endereco() {
+        this.rua = null;
+        this.cidade = null;
+        this.num = -1;
     }
 
     public String getRua() {
@@ -29,14 +33,6 @@ public class Endereco {
 
     public void setRua(String rua) {
         this.rua = rua;
-    }
-
-    public String getBairro() {
-        return bairro;
-    }
-
-    public void setBairro(String bairro) {
-        this.bairro = bairro;
     }
 
     public String getCidade() {
@@ -55,5 +51,9 @@ public class Endereco {
         this.num = num;
     }
     
+    public String toString()
+    {
+        return ("Endereço: " + this.rua + ", " + this.num + ", " + this.cidade);
+    }
     
 }

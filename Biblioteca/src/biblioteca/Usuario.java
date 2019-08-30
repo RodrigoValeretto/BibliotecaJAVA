@@ -6,6 +6,9 @@
 package biblioteca;
 
 import java.io.IOException;
+
+import java.util.Scanner;
+
 /**
  *
  * @author rodrigo
@@ -54,7 +57,14 @@ public class Usuario {
     public void setD(Data d) {
         this.d = d;
     }
-
+    
+    public void setData(String str)
+    {
+        String[] S;
+        S = str.split("/");
+        Data r = new Data(Integer.parseInt(S[0]), Integer.parseInt(S[1]), Integer.parseInt(S[2]));
+        this.setD(r);
+    }        
     public Endereco getE() {
         return e;
     }
@@ -63,32 +73,103 @@ public class Usuario {
         this.e = e;
     }
     
-    public int verificacampos()
+    public void verificacampos() throws IOException
     {
-        try{
         if(this.nome == null || this.d == null || this.e == null || this.nusp == null)
-            return 0;
-        }catch(InvalidValueException e)
-        {
-            
-        }
-        return 1;
+            throw new IOException("Usuário não inicializado!");
     }
     
-    public int verificanusp()
+    public void verificanome() throws IllegalArgumentException
     {
-        if(this.nusp.length() != 7)
-            return 0;
-        return 1;
+        if(this.nome.isEmpty())
+            throw new IllegalArgumentException("Nome inválido!");
     }
     
-    public int verificadata()
+    public void verificanusp() throws IllegalArgumentException
     {
-        if(this.d.getDia() < 1 && this.d.getDia() > 31)
-            return 0;
-        if(this.d.getMes() < 1 && this.d.getMes() > 12)
-            return 0;
+        if(this.nusp.length() != 8)
+            throw new IllegalArgumentException("Tamanho de NUSP inválido!");
+    }
+    
+    public void verificadata() throws IllegalArgumentException
+    {
+        if(this.d.getDia() < 1 || this.d.getDia() > 31)
+            throw new IllegalArgumentException("Data inválida!");
+        if(this.d.getMes() < 1 || this.d.getMes() > 12)
+            throw new IllegalArgumentException("Data inválida!");
+    }
+    
+    public void verificaend() throws IllegalArgumentException
+    {
+        if(this.e.getRua().isEmpty() || this.e.getCidade().isEmpty())
+            throw new IllegalArgumentException("Endereço inválido!");
+    }
+    
+    public boolean IniciaUser()
+    {
+        Endereco x = new Endereco();
         
-        return 1;
+        System.out.println("Digite o nome do aluno:");
+        Scanner scan = new Scanner(System.in);
+        try
+        {
+            this.setNome(scan.nextLine());
+            this.verificanome();
+        }catch(IllegalArgumentException p)
+        {
+            System.out.println(p.getMessage());
+            return false;
+        }
+        
+        try
+        {
+            System.out.println("Digite o NUSP do aluno:");
+            this.setNusp(scan.nextLine());
+            this.verificanusp();
+        }catch(IllegalArgumentException p)
+        {
+            System.out.println(p.getMessage());
+            return false;
+        }
+        
+        try
+        {
+            System.out.println("Digite a data de nascimento do aluno no formato dia/mes/ano:");
+            this.setData(scan.nextLine());
+            this.verificadata();
+        }catch(IllegalArgumentException p)
+        {
+            System.out.println(p.getMessage());
+            return false;
+        }
+        
+        System.out.println("Sobre o endereço do aluno digite:");
+        
+        System.out.println("A Rua:");
+        x.setRua(scan.nextLine());
+        
+        System.out.println("A cidade:");
+        x.setCidade(scan.nextLine());
+        
+        System.out.println("O número:");
+        x.setNum(scan.nextInt());
+        
+        try
+        {
+            this.setE(x);
+            this.verificaend();
+        }catch(IllegalArgumentException p)
+        {
+            System.out.println(p.getMessage());
+            return false;
+        }
+            
+            
+        System.out.println(this.getNome());
+        System.out.println(this.getNusp());
+        System.out.println(this.getD());
+        System.out.println(this.getE());
+        
+        return true;
     }
 }

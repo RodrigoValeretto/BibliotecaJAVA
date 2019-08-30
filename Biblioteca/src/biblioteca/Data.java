@@ -45,4 +45,9 @@ public class Data {
     public void setAno(int ano) {
         this.ano = ano;
     }
+    
+    public String toString()
+    {
+        return (this.dia + "/" + this.mes + "/" + this.ano);
+    }
 }
