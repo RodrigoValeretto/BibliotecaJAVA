@@ -20,7 +20,7 @@ public class Midia {
     private Editora ed;
     private int andar;
     private String sec;
-    private boolean disp;
+    private int ndias;
 
     public Midia(String titulo, String autor, int anopub, String tipo, Editora ed, int andar, String sec) {
         this.titulo = titulo;
@@ -30,7 +30,7 @@ public class Midia {
         this.ed = ed;
         this.andar = andar;
         this.sec = sec;
-        this.disp = true;
+        this.ndias = -1;
     }
 
     
@@ -42,7 +42,7 @@ public class Midia {
         this.ed = null;
         this.andar = -1;
         this.sec = null;
-        this.disp = true;
+        this.ndias = -1;
     }
 
     public String getTitulo() {
@@ -99,6 +99,14 @@ public class Midia {
 
     public void setSec(String sec) {
         this.sec = sec;
+    }
+
+    public int getNdias() {
+        return ndias;
+    }
+
+    public void setNdias(int ndias) {
+        this.ndias = ndias;
     }
 
     @Override

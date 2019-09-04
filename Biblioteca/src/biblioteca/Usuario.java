@@ -7,6 +7,8 @@ package biblioteca;
 
 import java.io.IOException;
 
+import java.util.LinkedList;
+
 import java.util.Scanner;
 
 /**
@@ -18,6 +20,7 @@ public class Usuario {
     private String nusp;
     private Data d;
     private Endereco e;
+    private LinkedList<Midia> ret;
     
     public Usuario()
     {
@@ -25,6 +28,7 @@ public class Usuario {
         this.nusp = null;
         this.d = null;
         this.e = null;
+        this.ret = new LinkedList();
     }
 
     public Usuario(String nome, String nusp, Data d, Endereco e) {
@@ -32,6 +36,7 @@ public class Usuario {
         this.nusp = nusp;
         this.d = d;
         this.e = e;
+        this.ret = new LinkedList();
     }
 
     public String getNome() {
@@ -72,6 +77,19 @@ public class Usuario {
     public void setE(Endereco e) {
         this.e = e;
     }
+
+    public LinkedList<Midia> getRet() {
+        return ret;
+    }
+
+    public void setRet(LinkedList<Midia> ret) {
+        this.ret = ret;
+    }
+
+    @Override
+    public String toString() {
+        return "Usuario{" + "nome=" + nome + ", nusp=" + nusp + ", d=" + d + ", e=" + e + '}';
+    }
     
     public void verificacampos() throws IOException
     {
@@ -109,7 +127,7 @@ public class Usuario {
     {
         Endereco x = new Endereco();
         
-        System.out.println("Digite o nome do aluno:");
+        System.out.println("Digite o nome do usuário:");
         Scanner scan = new Scanner(System.in);
         try
         {
@@ -123,7 +141,7 @@ public class Usuario {
         
         try
         {
-            System.out.println("Digite o NUSP do aluno:");
+            System.out.println("Digite o NUSP do usuário:");
             this.setNusp(scan.nextLine());
             this.verificanusp();
         }catch(IllegalArgumentException p)
@@ -134,7 +152,7 @@ public class Usuario {
         
         try
         {
-            System.out.println("Digite a data de nascimento do aluno no formato dia/mes/ano:");
+            System.out.println("Digite a data de nascimento do usuário no formato dia/mes/ano:");
             this.setData(scan.nextLine());
             this.verificadata();
         }catch(IllegalArgumentException p)
@@ -143,7 +161,7 @@ public class Usuario {
             return false;
         }
         
-        System.out.println("Sobre o endereço do aluno digite:");
+        System.out.println("Sobre o endereço do usuário digite:");
         
         System.out.println("A Rua:");
         x.setRua(scan.nextLine());
@@ -164,12 +182,7 @@ public class Usuario {
             return false;
         }
             
-            
-        System.out.println(this.getNome());
-        System.out.println(this.getNusp());
-        System.out.println(this.getD());
-        System.out.println(this.getE());
-        
+        System.out.println("Usuário inserido com sucesso!");        
         return true;
     }
 }
